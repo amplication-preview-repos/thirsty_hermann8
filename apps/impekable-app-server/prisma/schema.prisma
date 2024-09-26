@@ -1,5 +1,5 @@
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DB_URL")
 }
 
@@ -12,7 +12,7 @@ model Team {
   creationDate DateTime?
   creator      String?
   description  String?
-  id           String            @id @default(cuid())
+  id           String            @id @default(auto()) @map("_id") @db.ObjectId
   objectives   String?
   status       EnumTeamStatus?
   teamName     String?
@@ -26,7 +26,7 @@ model Office {
   createdAt            DateTime          @default(now())
   currentBookings      Int?
   franchisee           String?
-  id                   String            @id @default(cuid())
+  id                   String            @id @default(auto()) @map("_id") @db.ObjectId
   location             String?
   maxBookingCapacity   Int?
   operatingHours       Json?
@@ -43,7 +43,7 @@ model ServiceType {
   additionalServices Boolean?
   createdAt          DateTime  @default(now())
   description        String?
-  id                 String    @id @default(cuid())
+  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
   isPrincipal        Boolean?
   name               String?
   numberOfBathrooms  Int?
@@ -63,7 +63,7 @@ model Property {
   emergencyContact      String?
   guestCapacity         Int?
   houseRules            String?
-  id                    String                    @id @default(cuid())
+  id                    String                    @id @default(auto()) @map("_id") @db.ObjectId
   inventoryInstructions String?
   laundryAgreement      String?
   numberOfBathrooms     Int?
@@ -85,7 +85,7 @@ model Rating {
   anonymity        Boolean?
   comments         String?
   createdAt        DateTime                   @default(now())
-  id               String                     @id @default(cuid())
+  id               String                     @id @default(auto()) @map("_id") @db.ObjectId
   ratedEntityType  EnumRatingRatedEntityType?
   ratedProperty    String?
   ratedRole        String?
@@ -111,17 +111,17 @@ model Booking {
   checkOutDatetime      DateTime?
   client                String?
   createdAt             DateTime                          @default(now())
-  id                    String                            @id @default(cuid())
+  id                    String                            @id @default(auto()) @map("_id") @db.ObjectId
   numberOfGuests        Int?
   office                Office?                           @relation(fields: [officeId], references: [id])
-  officeId              String?
+  officeId              String?                           @db.ObjectId
   platformBookingId     String?
   platformCommissions   Float?
   platformSource        String?
   principalService      String?
   productsReposition    Boolean?
   property              Property?                         @relation(fields: [propertyId], references: [id])
-  propertyId            String?
+  propertyId            String?                           @db.ObjectId
   reports               Report[]
   requests              Request[]
   services              Service[]
@@ -133,10 +133,10 @@ model Booking {
 model Transaction {
   amount          Float?
   booking         Booking?                        @relation(fields: [bookingId], references: [id])
-  bookingId       String?
+  bookingId       String?                         @db.ObjectId
   createdAt       DateTime                        @default(now())
   description     String?
-  id              String                          @id @default(cuid())
+  id              String                          @id @default(auto()) @map("_id") @db.ObjectId
   paymentDetails  Json?
   paymentMethod   EnumTransactionPaymentMethod?
   postBalance     Float?
@@ -156,7 +156,7 @@ model Content {
   createdAt       DateTime                @default(now())
   creator         String?
   description     String?
-  id              String                  @id @default(cuid())
+  id              String                  @id @default(auto()) @map("_id") @db.ObjectId
   publicationDate DateTime?
   recipients      Json?
   status          EnumContentStatus?
@@ -169,21 +169,21 @@ model Content {
 model Service {
   basePrice             Float?
   booking               Booking?           @relation(fields: [bookingId], references: [id])
-  bookingId             String?
+  bookingId             String?            @db.ObjectId
   category              String?
   createdAt             DateTime           @default(now())
   description           String?
   equipmentRequirements Json?
   estimatedDuration     Float?
-  id                    String             @id @default(cuid())
+  id                    String             @id @default(auto()) @map("_id") @db.ObjectId
   office                Office?            @relation(fields: [officeId], references: [id])
-  officeId              String?
+  officeId              String?            @db.ObjectId
   operators             Json?
   property              Property?          @relation(fields: [propertyId], references: [id])
-  propertyId            String?
+  propertyId            String?            @db.ObjectId
   reports               Report[]
   serviceType           ServiceType?       @relation(fields: [serviceTypeId], references: [id])
-  serviceTypeId         String?
+  serviceTypeId         String?            @db.ObjectId
   specialInstructions   Json?
   status                EnumServiceStatus?
   supervisor            String?
@@ -195,16 +195,16 @@ model Report {
   assignedTo         String?
   author             String?
   booking            Booking?                @relation(fields: [bookingId], references: [id])
-  bookingId          String?
+  bookingId          String?                 @db.ObjectId
   createdAt          DateTime                @default(now())
   description        String?
-  id                 String                  @id @default(cuid())
+  id                 String                  @id @default(auto()) @map("_id") @db.ObjectId
   office             Office?                 @relation(fields: [officeId], references: [id])
-  officeId           String?
+  officeId           String?                 @db.ObjectId
   photos             Json?
   priority           EnumReportPriority?
   property           Property?               @relation(fields: [propertyId], references: [id])
-  propertyId         String?
+  propertyId         String?                 @db.ObjectId
   reportDatetime     DateTime?
   reportName         String?
   reportStatus       EnumReportReportStatus?
@@ -213,25 +213,25 @@ model Report {
   resolutionComments String?
   resolutionDate     DateTime?
   service            Service?                @relation(fields: [serviceId], references: [id])
-  serviceId          String?
+  serviceId          String?                 @db.ObjectId
   updatedAt          DateTime                @updatedAt
 }
 
 model Request {
   acceptedProposal Json?
   booking          Booking?                @relation(fields: [bookingId], references: [id])
-  bookingId        String?
+  bookingId        String?                 @db.ObjectId
   createdAt        DateTime                @default(now())
   documents        Json?
-  id               String                  @id @default(cuid())
+  id               String                  @id @default(auto()) @map("_id") @db.ObjectId
   office           Office?                 @relation(fields: [officeId], references: [id])
-  officeId         String?
+  officeId         String?                 @db.ObjectId
   proposals        Json?
   proposedDates    Json?
   proposedValue    Float?
   reason           String?
   report           Report?                 @relation(fields: [reportId], references: [id])
-  reportId         String?
+  reportId         String?                 @db.ObjectId
   requestDate      DateTime?
   requestType      EnumRequestRequestType?
   requester        String?
@@ -249,7 +249,7 @@ model User {
   createdAt          DateTime        @default(now())
   email              String?
   firstName          String?
-  id                 String          @id @default(cuid())
+  id                 String          @id @default(auto()) @map("_id") @db.ObjectId
   identityDocument   String?
   lastAccessDate     DateTime?
   lastName           String?
