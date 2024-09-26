@@ -1,0 +1,35 @@
+import { JsonValue } from "type-fest";
+import { Office } from "../office/Office";
+import { Property } from "../property/Property";
+import { Report } from "../report/Report";
+import { Request } from "../request/Request";
+import { Service } from "../service/Service";
+import { Transaction } from "../transaction/Transaction";
+
+export type Booking = {
+  additionalInformation: string | null;
+  additionalServices: JsonValue;
+  bookingNotes: string | null;
+  bookingPrice: number | null;
+  bookingSource?: "Option1" | null;
+  bookingStatus?: "Option1" | null;
+  checkInDatetime: Date | null;
+  checkOutDatetime: Date | null;
+  client: string | null;
+  createdAt: Date;
+  id: string;
+  numberOfGuests: number | null;
+  office?: Office | null;
+  platformBookingId: string | null;
+  platformCommissions: number | null;
+  platformSource: string | null;
+  principalService: string | null;
+  productsReposition: boolean | null;
+  property?: Property | null;
+  reports?: Array<Report>;
+  requests?: Array<Request>;
+  services?: Array<Service>;
+  synchronizationStatus?: "Option1" | null;
+  transactions?: Array<Transaction>;
+  updatedAt: Date;
+};

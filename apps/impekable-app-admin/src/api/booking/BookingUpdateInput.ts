@@ -1,0 +1,32 @@
+import { InputJsonValue } from "../../types";
+import { OfficeWhereUniqueInput } from "../office/OfficeWhereUniqueInput";
+import { PropertyWhereUniqueInput } from "../property/PropertyWhereUniqueInput";
+import { ReportUpdateManyWithoutBookingsInput } from "./ReportUpdateManyWithoutBookingsInput";
+import { RequestUpdateManyWithoutBookingsInput } from "./RequestUpdateManyWithoutBookingsInput";
+import { ServiceUpdateManyWithoutBookingsInput } from "./ServiceUpdateManyWithoutBookingsInput";
+import { TransactionUpdateManyWithoutBookingsInput } from "./TransactionUpdateManyWithoutBookingsInput";
+
+export type BookingUpdateInput = {
+  additionalInformation?: string | null;
+  additionalServices?: InputJsonValue;
+  bookingNotes?: string | null;
+  bookingPrice?: number | null;
+  bookingSource?: "Option1" | null;
+  bookingStatus?: "Option1" | null;
+  checkInDatetime?: Date | null;
+  checkOutDatetime?: Date | null;
+  client?: string | null;
+  numberOfGuests?: number | null;
+  office?: OfficeWhereUniqueInput | null;
+  platformBookingId?: string | null;
+  platformCommissions?: number | null;
+  platformSource?: string | null;
+  principalService?: string | null;
+  productsReposition?: boolean | null;
+  property?: PropertyWhereUniqueInput | null;
+  reports?: ReportUpdateManyWithoutBookingsInput;
+  requests?: RequestUpdateManyWithoutBookingsInput;
+  services?: ServiceUpdateManyWithoutBookingsInput;
+  synchronizationStatus?: "Option1" | null;
+  transactions?: TransactionUpdateManyWithoutBookingsInput;
+};

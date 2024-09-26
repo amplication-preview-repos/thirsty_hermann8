@@ -1,0 +1,363 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Team {
+  createdAt    DateTime          @default(now())
+  creationDate DateTime?
+  creator      String?
+  description  String?
+  id           String            @id @default(auto()) @map("_id") @db.ObjectId
+  objectives   String?
+  status       EnumTeamStatus?
+  teamName     String?
+  teamType     EnumTeamTeamType?
+  updatedAt    DateTime          @updatedAt
+}
+
+model Office {
+  bookings             Booking[]
+  contactInformation   Json?
+  createdAt            DateTime          @default(now())
+  currentBookings      Int?
+  franchisee           String?
+  id                   String            @id @default(auto()) @map("_id") @db.ObjectId
+  location             String?
+  maxBookingCapacity   Int?
+  operatingHours       Json?
+  operationManagersIds Json?
+  reports              Report[]
+  requests             Request[]
+  services             Service[]
+  status               EnumOfficeStatus?
+  teamIds              Json?
+  updatedAt            DateTime          @updatedAt
+}
+
+model Property {
+  additionalServices    Json?
+  address               String?
+  bookings              Booking[]
+  cancellationPolicy    String?
+  createdAt             DateTime                  @default(now())
+  emergencyContact      String?
+  guestCapacity         Int?
+  houseRules            String?
+  id                    String                    @id @default(auto()) @map("_id") @db.ObjectId
+  inventoryInstructions String?
+  laundryAgreement      String?
+  numberOfBathrooms     Int?
+  numberOfBedrooms      Int?
+  principalService      String?
+  productsReposition    Boolean?
+  propertyName          String?
+  propertyType          EnumPropertyPropertyType?
+  qrCode                String?
+  reports               Report[]
+  services              Service[]
+  specialInstructions   String?
+  squareMeters          Int?
+  status                EnumPropertyStatus?
+  updatedAt             DateTime                  @updatedAt
+}
+
+model ServiceType {
+  additionalServices Boolean?
+  createdAt          DateTime  @default(now())
+  description        String?
+  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
+  isPrincipal        Boolean?
+  name               String?
+  numberOfBathrooms  Int?
+  numberOfBedrooms   Int?
+  photos             Json?
+  price              Float?
+  services           Service[]
+  updatedAt          DateTime  @updatedAt
+}
+
+model Rating {
+  anonymity        Boolean?
+  comments         String?
+  createdAt        DateTime                   @default(now())
+  id               String                     @id @default(auto()) @map("_id") @db.ObjectId
+  ratedEntityType  EnumRatingRatedEntityType?
+  ratedProperty    String?
+  ratedRole        String?
+  ratedService     String?
+  ratedUser        String?
+  rater            String?
+  raterRole        String?
+  ratingCategories Json?
+  ratingDate       DateTime?
+  ratingScore      Float?
+  updatedAt        DateTime                   @updatedAt
+  visibility       EnumRatingVisibility?
+}
+
+model Transaction {
+  amount          Float?
+  booking         Booking?                        @relation(fields: [bookingId], references: [id])
+  bookingId       String?                         @db.ObjectId
+  createdAt       DateTime                        @default(now())
+  description     String?
+  id              String                          @id @default(auto()) @map("_id") @db.ObjectId
+  paymentDetails  Json?
+  paymentMethod   EnumTransactionPaymentMethod?
+  postBalance     Float?
+  previousBalance Float?
+  receiverUser    String?
+  senderUser      String?
+  status          EnumTransactionStatus?
+  transactionDate DateTime?
+  transactionType EnumTransactionTransactionType?
+  updatedAt       DateTime                        @updatedAt
+}
+
+model Content {
+  categories      Json?
+  contentDetail   String?
+  contentType     EnumContentContentType?
+  createdAt       DateTime                @default(now())
+  creator         String?
+  description     String?
+  id              String                  @id @default(auto()) @map("_id") @db.ObjectId
+  publicationDate DateTime?
+  recipients      Json?
+  status          EnumContentStatus?
+  title           String?
+  updateDate      DateTime?
+  updatedAt       DateTime                @updatedAt
+  visibility      EnumContentVisibility?
+}
+
+model Service {
+  basePrice             Float?
+  booking               Booking?           @relation(fields: [bookingId], references: [id])
+  bookingId             String?            @db.ObjectId
+  category              String?
+  createdAt             DateTime           @default(now())
+  description           String?
+  equipmentRequirements Json?
+  estimatedDuration     Float?
+  id                    String             @id @default(auto()) @map("_id") @db.ObjectId
+  office                Office?            @relation(fields: [officeId], references: [id])
+  officeId              String?            @db.ObjectId
+  operators             Json?
+  property              Property?          @relation(fields: [propertyId], references: [id])
+  propertyId            String?            @db.ObjectId
+  reports               Report[]
+  serviceType           ServiceType?       @relation(fields: [serviceTypeId], references: [id])
+  serviceTypeId         String?            @db.ObjectId
+  specialInstructions   Json?
+  status                EnumServiceStatus?
+  supervisor            String?
+  taskForm              String?
+  updatedAt             DateTime           @updatedAt
+}
+
+model Report {
+  assignedTo         String?
+  author             String?
+  booking            Booking?                @relation(fields: [bookingId], references: [id])
+  bookingId          String?                 @db.ObjectId
+  createdAt          DateTime                @default(now())
+  description        String?
+  id                 String                  @id @default(auto()) @map("_id") @db.ObjectId
+  office             Office?                 @relation(fields: [officeId], references: [id])
+  officeId           String?                 @db.ObjectId
+  photos             Json?
+  priority           EnumReportPriority?
+  property           Property?               @relation(fields: [propertyId], references: [id])
+  propertyId         String?                 @db.ObjectId
+  reportDatetime     DateTime?
+  reportName         String?
+  reportStatus       EnumReportReportStatus?
+  reportType         EnumReportReportType?
+  requests           Request[]
+  resolutionComments String?
+  resolutionDate     DateTime?
+  service            Service?                @relation(fields: [serviceId], references: [id])
+  serviceId          String?                 @db.ObjectId
+  updatedAt          DateTime                @updatedAt
+}
+
+model Booking {
+  additionalInformation String?
+  additionalServices    Json?
+  bookingNotes          String?
+  bookingPrice          Float?
+  bookingSource         EnumBookingBookingSource?
+  bookingStatus         EnumBookingBookingStatus?
+  checkInDatetime       DateTime?
+  checkOutDatetime      DateTime?
+  client                String?
+  createdAt             DateTime                          @default(now())
+  id                    String                            @id @default(auto()) @map("_id") @db.ObjectId
+  numberOfGuests        Int?
+  office                Office?                           @relation(fields: [officeId], references: [id])
+  officeId              String?                           @db.ObjectId
+  platformBookingId     String?
+  platformCommissions   Float?
+  platformSource        String?
+  principalService      String?
+  productsReposition    Boolean?
+  property              Property?                         @relation(fields: [propertyId], references: [id])
+  propertyId            String?                           @db.ObjectId
+  reports               Report[]
+  requests              Request[]
+  services              Service[]
+  synchronizationStatus EnumBookingSynchronizationStatus?
+  transactions          Transaction[]
+  updatedAt             DateTime                          @updatedAt
+}
+
+model Request {
+  acceptedProposal Json?
+  booking          Booking?                @relation(fields: [bookingId], references: [id])
+  bookingId        String?                 @db.ObjectId
+  createdAt        DateTime                @default(now())
+  documents        Json?
+  id               String                  @id @default(auto()) @map("_id") @db.ObjectId
+  office           Office?                 @relation(fields: [officeId], references: [id])
+  officeId         String?                 @db.ObjectId
+  proposals        Json?
+  proposedDates    Json?
+  proposedValue    Float?
+  reason           String?
+  report           Report?                 @relation(fields: [reportId], references: [id])
+  reportId         String?                 @db.ObjectId
+  requestDate      DateTime?
+  requestType      EnumRequestRequestType?
+  requester        String?
+  responder        String?
+  status           EnumRequestStatus?
+  updatedAt        DateTime                @updatedAt
+}
+
+model User {
+  address            String?
+  availability       Json?
+  billingInformation Json?
+  certifications     Json?
+  city               String?
+  createdAt          DateTime        @default(now())
+  email              String?
+  firstName          String?
+  id                 String          @id @default(auto()) @map("_id") @db.ObjectId
+  identityDocument   String?
+  lastAccessDate     DateTime?
+  lastName           String?
+  password           String?
+  paymentMethods     Json?
+  phoneNumber        String?
+  preferences        Json?
+  registrationDate   DateTime?
+  role               EnumUserRole?
+  status             EnumUserStatus?
+  teamMemberships    Json?
+  updatedAt          DateTime        @updatedAt
+  walletBalance      Float?
+  walletLastUpdate   DateTime?
+}
+
+enum EnumTeamStatus {
+  Option1
+}
+
+enum EnumTeamTeamType {
+  Option1
+}
+
+enum EnumOfficeStatus {
+  Option1
+}
+
+enum EnumPropertyPropertyType {
+  Option1
+}
+
+enum EnumPropertyStatus {
+  Option1
+}
+
+enum EnumRatingRatedEntityType {
+  Option1
+}
+
+enum EnumRatingVisibility {
+  Option1
+}
+
+enum EnumTransactionPaymentMethod {
+  Option1
+}
+
+enum EnumTransactionStatus {
+  Option1
+}
+
+enum EnumTransactionTransactionType {
+  Option1
+}
+
+enum EnumContentContentType {
+  Option1
+}
+
+enum EnumContentStatus {
+  Option1
+}
+
+enum EnumContentVisibility {
+  Option1
+}
+
+enum EnumServiceStatus {
+  Option1
+}
+
+enum EnumReportPriority {
+  Option1
+}
+
+enum EnumReportReportStatus {
+  Option1
+}
+
+enum EnumReportReportType {
+  Option1
+}
+
+enum EnumBookingBookingSource {
+  Option1
+}
+
+enum EnumBookingBookingStatus {
+  Option1
+}
+
+enum EnumBookingSynchronizationStatus {
+  Option1
+}
+
+enum EnumRequestRequestType {
+  Option1
+}
+
+enum EnumRequestStatus {
+  Option1
+}
+
+enum EnumUserRole {
+  Option1
+}
+
+enum EnumUserStatus {
+  Option1
+}

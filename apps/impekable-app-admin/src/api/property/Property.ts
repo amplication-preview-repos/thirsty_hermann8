@@ -1,0 +1,31 @@
+import { JsonValue } from "type-fest";
+import { Booking } from "../booking/Booking";
+import { Report } from "../report/Report";
+import { Service } from "../service/Service";
+
+export type Property = {
+  additionalServices: JsonValue;
+  address: string | null;
+  bookings?: Array<Booking>;
+  cancellationPolicy: string | null;
+  createdAt: Date;
+  emergencyContact: string | null;
+  guestCapacity: number | null;
+  houseRules: string | null;
+  id: string;
+  inventoryInstructions: string | null;
+  laundryAgreement: string | null;
+  numberOfBathrooms: number | null;
+  numberOfBedrooms: number | null;
+  principalService: string | null;
+  productsReposition: boolean | null;
+  propertyName: string | null;
+  propertyType?: "Option1" | null;
+  qrCode: string | null;
+  reports?: Array<Report>;
+  services?: Array<Service>;
+  specialInstructions: string | null;
+  squareMeters: number | null;
+  status?: "Option1" | null;
+  updatedAt: Date;
+};
