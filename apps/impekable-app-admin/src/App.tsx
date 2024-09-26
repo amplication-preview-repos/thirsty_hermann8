@@ -13,22 +13,18 @@ import { OfficeList } from "./office/OfficeList";
 import { OfficeCreate } from "./office/OfficeCreate";
 import { OfficeEdit } from "./office/OfficeEdit";
 import { OfficeShow } from "./office/OfficeShow";
-import { ServiceTypeList } from "./serviceType/ServiceTypeList";
-import { ServiceTypeCreate } from "./serviceType/ServiceTypeCreate";
-import { ServiceTypeEdit } from "./serviceType/ServiceTypeEdit";
-import { ServiceTypeShow } from "./serviceType/ServiceTypeShow";
 import { PropertyList } from "./property/PropertyList";
 import { PropertyCreate } from "./property/PropertyCreate";
 import { PropertyEdit } from "./property/PropertyEdit";
 import { PropertyShow } from "./property/PropertyShow";
+import { ServiceTypeList } from "./serviceType/ServiceTypeList";
+import { ServiceTypeCreate } from "./serviceType/ServiceTypeCreate";
+import { ServiceTypeEdit } from "./serviceType/ServiceTypeEdit";
+import { ServiceTypeShow } from "./serviceType/ServiceTypeShow";
 import { RatingList } from "./rating/RatingList";
 import { RatingCreate } from "./rating/RatingCreate";
 import { RatingEdit } from "./rating/RatingEdit";
 import { RatingShow } from "./rating/RatingShow";
-import { BookingList } from "./booking/BookingList";
-import { BookingCreate } from "./booking/BookingCreate";
-import { BookingEdit } from "./booking/BookingEdit";
-import { BookingShow } from "./booking/BookingShow";
 import { TransactionList } from "./transaction/TransactionList";
 import { TransactionCreate } from "./transaction/TransactionCreate";
 import { TransactionEdit } from "./transaction/TransactionEdit";
@@ -45,6 +41,10 @@ import { ReportList } from "./report/ReportList";
 import { ReportCreate } from "./report/ReportCreate";
 import { ReportEdit } from "./report/ReportEdit";
 import { ReportShow } from "./report/ReportShow";
+import { BookingList } from "./booking/BookingList";
+import { BookingCreate } from "./booking/BookingCreate";
+import { BookingEdit } from "./booking/BookingEdit";
+import { BookingShow } from "./booking/BookingShow";
 import { RequestList } from "./request/RequestList";
 import { RequestCreate } from "./request/RequestCreate";
 import { RequestEdit } from "./request/RequestEdit";
@@ -81,13 +81,6 @@ const App = (): React.ReactElement => {
           show={OfficeShow}
         />
         <Resource
-          name="ServiceType"
-          list={ServiceTypeList}
-          edit={ServiceTypeEdit}
-          create={ServiceTypeCreate}
-          show={ServiceTypeShow}
-        />
-        <Resource
           name="Property"
           list={PropertyList}
           edit={PropertyEdit}
@@ -95,18 +88,18 @@ const App = (): React.ReactElement => {
           show={PropertyShow}
         />
         <Resource
+          name="ServiceType"
+          list={ServiceTypeList}
+          edit={ServiceTypeEdit}
+          create={ServiceTypeCreate}
+          show={ServiceTypeShow}
+        />
+        <Resource
           name="Rating"
           list={RatingList}
           edit={RatingEdit}
           create={RatingCreate}
           show={RatingShow}
-        />
-        <Resource
-          name="Booking"
-          list={BookingList}
-          edit={BookingEdit}
-          create={BookingCreate}
-          show={BookingShow}
         />
         <Resource
           name="Transaction"
@@ -135,6 +128,13 @@ const App = (): React.ReactElement => {
           edit={ReportEdit}
           create={ReportCreate}
           show={ReportShow}
+        />
+        <Resource
+          name="Booking"
+          list={BookingList}
+          edit={BookingEdit}
+          create={BookingCreate}
+          show={BookingShow}
         />
         <Resource
           name="Request"

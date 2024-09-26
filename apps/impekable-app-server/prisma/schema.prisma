@@ -39,21 +39,6 @@ model Office {
   updatedAt            DateTime          @updatedAt
 }
 
-model ServiceType {
-  additionalServices Boolean?
-  createdAt          DateTime  @default(now())
-  description        String?
-  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
-  isPrincipal        Boolean?
-  name               String?
-  numberOfBathrooms  Int?
-  numberOfBedrooms   Int?
-  photos             Json?
-  price              Float?
-  services           Service[]
-  updatedAt          DateTime  @updatedAt
-}
-
 model Property {
   additionalServices    Json?
   address               String?
@@ -81,6 +66,21 @@ model Property {
   updatedAt             DateTime                  @updatedAt
 }
 
+model ServiceType {
+  additionalServices Boolean?
+  createdAt          DateTime  @default(now())
+  description        String?
+  id                 String    @id @default(auto()) @map("_id") @db.ObjectId
+  isPrincipal        Boolean?
+  name               String?
+  numberOfBathrooms  Int?
+  numberOfBedrooms   Int?
+  photos             Json?
+  price              Float?
+  services           Service[]
+  updatedAt          DateTime  @updatedAt
+}
+
 model Rating {
   anonymity        Boolean?
   comments         String?
@@ -98,36 +98,6 @@ model Rating {
   ratingScore      Float?
   updatedAt        DateTime                   @updatedAt
   visibility       EnumRatingVisibility?
-}
-
-model Booking {
-  additionalInformation String?
-  additionalServices    Json?
-  bookingNotes          String?
-  bookingPrice          Float?
-  bookingSource         EnumBookingBookingSource?
-  bookingStatus         EnumBookingBookingStatus?
-  checkInDatetime       DateTime?
-  checkOutDatetime      DateTime?
-  client                String?
-  createdAt             DateTime                          @default(now())
-  id                    String                            @id @default(auto()) @map("_id") @db.ObjectId
-  numberOfGuests        Int?
-  office                Office?                           @relation(fields: [officeId], references: [id])
-  officeId              String?                           @db.ObjectId
-  platformBookingId     String?
-  platformCommissions   Float?
-  platformSource        String?
-  principalService      String?
-  productsReposition    Boolean?
-  property              Property?                         @relation(fields: [propertyId], references: [id])
-  propertyId            String?                           @db.ObjectId
-  reports               Report[]
-  requests              Request[]
-  services              Service[]
-  synchronizationStatus EnumBookingSynchronizationStatus?
-  transactions          Transaction[]
-  updatedAt             DateTime                          @updatedAt
 }
 
 model Transaction {
@@ -217,6 +187,36 @@ model Report {
   updatedAt          DateTime                @updatedAt
 }
 
+model Booking {
+  additionalInformation String?
+  additionalServices    Json?
+  bookingNotes          String?
+  bookingPrice          Float?
+  bookingSource         EnumBookingBookingSource?
+  bookingStatus         EnumBookingBookingStatus?
+  checkInDatetime       DateTime?
+  checkOutDatetime      DateTime?
+  client                String?
+  createdAt             DateTime                          @default(now())
+  id                    String                            @id @default(auto()) @map("_id") @db.ObjectId
+  numberOfGuests        Int?
+  office                Office?                           @relation(fields: [officeId], references: [id])
+  officeId              String?                           @db.ObjectId
+  platformBookingId     String?
+  platformCommissions   Float?
+  platformSource        String?
+  principalService      String?
+  productsReposition    Boolean?
+  property              Property?                         @relation(fields: [propertyId], references: [id])
+  propertyId            String?                           @db.ObjectId
+  reports               Report[]
+  requests              Request[]
+  services              Service[]
+  synchronizationStatus EnumBookingSynchronizationStatus?
+  transactions          Transaction[]
+  updatedAt             DateTime                          @updatedAt
+}
+
 model Request {
   acceptedProposal Json?
   booking          Booking?                @relation(fields: [bookingId], references: [id])
@@ -294,18 +294,6 @@ enum EnumRatingVisibility {
   Option1
 }
 
-enum EnumBookingBookingSource {
-  Option1
-}
-
-enum EnumBookingBookingStatus {
-  Option1
-}
-
-enum EnumBookingSynchronizationStatus {
-  Option1
-}
-
 enum EnumTransactionPaymentMethod {
   Option1
 }
@@ -343,6 +331,18 @@ enum EnumReportReportStatus {
 }
 
 enum EnumReportReportType {
+  Option1
+}
+
+enum EnumBookingBookingSource {
+  Option1
+}
+
+enum EnumBookingBookingStatus {
+  Option1
+}
+
+enum EnumBookingSynchronizationStatus {
   Option1
 }
 

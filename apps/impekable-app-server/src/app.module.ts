@@ -1,14 +1,14 @@
 import { Module } from "@nestjs/common";
 import { TeamModule } from "./team/team.module";
 import { OfficeModule } from "./office/office.module";
-import { ServiceTypeModule } from "./serviceType/serviceType.module";
 import { PropertyModule } from "./property/property.module";
+import { ServiceTypeModule } from "./serviceType/serviceType.module";
 import { RatingModule } from "./rating/rating.module";
-import { BookingModule } from "./booking/booking.module";
 import { TransactionModule } from "./transaction/transaction.module";
 import { ContentModule } from "./content/content.module";
 import { ServiceModule } from "./service/service.module";
 import { ReportModule } from "./report/report.module";
+import { BookingModule } from "./booking/booking.module";
 import { RequestModule } from "./request/request.module";
 import { UserModule } from "./user/user.module";
 import { HealthModule } from "./health/health.module";
@@ -25,14 +25,14 @@ import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
   imports: [
     TeamModule,
     OfficeModule,
-    ServiceTypeModule,
     PropertyModule,
+    ServiceTypeModule,
     RatingModule,
-    BookingModule,
     TransactionModule,
     ContentModule,
     ServiceModule,
     ReportModule,
+    BookingModule,
     RequestModule,
     UserModule,
     HealthModule,
