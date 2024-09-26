@@ -1,0 +1,32 @@
+import { InputJsonValue } from "../../types";
+import { OfficeWhereUniqueInput } from "../office/OfficeWhereUniqueInput";
+import { PropertyWhereUniqueInput } from "../property/PropertyWhereUniqueInput";
+import { ReportCreateNestedManyWithoutBookingsInput } from "./ReportCreateNestedManyWithoutBookingsInput";
+import { RequestCreateNestedManyWithoutBookingsInput } from "./RequestCreateNestedManyWithoutBookingsInput";
+import { ServiceCreateNestedManyWithoutBookingsInput } from "./ServiceCreateNestedManyWithoutBookingsInput";
+import { TransactionCreateNestedManyWithoutBookingsInput } from "./TransactionCreateNestedManyWithoutBookingsInput";
+
+export type BookingCreateInput = {
+  additionalInformation?: string | null;
+  additionalServices?: InputJsonValue;
+  bookingNotes?: string | null;
+  bookingPrice?: number | null;
+  bookingSource?: "Option1" | null;
+  bookingStatus?: "Option1" | null;
+  checkInDatetime?: Date | null;
+  checkOutDatetime?: Date | null;
+  client?: string | null;
+  numberOfGuests?: number | null;
+  office?: OfficeWhereUniqueInput | null;
+  platformBookingId?: string | null;
+  platformCommissions?: number | null;
+  platformSource?: string | null;
+  principalService?: string | null;
+  productsReposition?: boolean | null;
+  property?: PropertyWhereUniqueInput | null;
+  reports?: ReportCreateNestedManyWithoutBookingsInput;
+  requests?: RequestCreateNestedManyWithoutBookingsInput;
+  services?: ServiceCreateNestedManyWithoutBookingsInput;
+  synchronizationStatus?: "Option1" | null;
+  transactions?: TransactionCreateNestedManyWithoutBookingsInput;
+};

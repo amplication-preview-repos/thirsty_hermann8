@@ -1,0 +1,33 @@
+import { JsonFilter } from "../../util/JsonFilter";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { BookingListRelationFilter } from "../booking/BookingListRelationFilter";
+import { IntNullableFilter } from "../../util/IntNullableFilter";
+import { StringFilter } from "../../util/StringFilter";
+import { BooleanNullableFilter } from "../../util/BooleanNullableFilter";
+import { ReportListRelationFilter } from "../report/ReportListRelationFilter";
+import { ServiceListRelationFilter } from "../service/ServiceListRelationFilter";
+
+export type PropertyWhereInput = {
+  additionalServices?: JsonFilter;
+  address?: StringNullableFilter;
+  bookings?: BookingListRelationFilter;
+  cancellationPolicy?: StringNullableFilter;
+  emergencyContact?: StringNullableFilter;
+  guestCapacity?: IntNullableFilter;
+  houseRules?: StringNullableFilter;
+  id?: StringFilter;
+  inventoryInstructions?: StringNullableFilter;
+  laundryAgreement?: StringNullableFilter;
+  numberOfBathrooms?: IntNullableFilter;
+  numberOfBedrooms?: IntNullableFilter;
+  principalService?: StringNullableFilter;
+  productsReposition?: BooleanNullableFilter;
+  propertyName?: StringNullableFilter;
+  propertyType?: "Option1";
+  qrCode?: StringNullableFilter;
+  reports?: ReportListRelationFilter;
+  services?: ServiceListRelationFilter;
+  specialInstructions?: StringNullableFilter;
+  squareMeters?: IntNullableFilter;
+  status?: "Option1";
+};
